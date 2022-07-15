@@ -100,7 +100,7 @@ if($lastInsertId>0){
 echo "<div class='content alert alert-primary' > Gracias .. Tu Nombre es : $nombres  </div>";
 }
 else{
-    echo "<div class='content alert alert-danger'> No se pueden agregar datos, comuníquese con el administrador  </div>";
+    echo "<div class='content alert alert-danger'> No se pueden agregar datos, comunÃ­quese con el administrador  </div>";
 
 print_r($sql->errorInfo()); 
 }
@@ -267,20 +267,21 @@ $query = $connect -> prepare($sql);
 $query -> execute(); 
 $results = $query -> fetchAll(PDO::FETCH_OBJ); 
 
-$fecha_nacimiento = "25-01-1998";
-$dia_actual = date("Y-m-d");
-$edad_diff = date_diff(date_create($fecha_nacimiento), date_create($dia_actual));
+
 
 if($query -> rowCount() > 0)   { 
 foreach($results as $result) 
 { 
-
+$fecha_nacimiento = $result -> fregis;
+$dia_actual = date("Y-m-d");
+$edad_diff = date_diff(date_create($fecha_nacimiento), date_create($dia_actual));
 echo "<tr>
 <td>".$result -> nombres."</td>
 <td>".$result -> apellidos."</td>
 <td>".$result -> profesion."</td>
 <td>".$result -> estado."</td>
 <td>".$result -> fregis."</td>
+<td>".$edad_diff->y."</td>
 <td>
 <form method='POST' action='".$_SERVER['PHP_SELF']."'>
 <input type='hidden' name='id' value='".$result -> id."'>
