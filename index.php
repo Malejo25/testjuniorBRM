@@ -14,6 +14,41 @@
 <link href="assets/sticky-footer-navbar.css" rel="stylesheet">
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 
+<script>
+function myFunction() {
+
+  var input, filter, table, tr, td, td2, td3, i, txtValue, txtValue2, txtValue3;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+
+  for (i = 0; i < tr.length; i++) {
+	td = tr[i].getElementsByTagName("td")[0];
+	td2 = tr[i].getElementsByTagName("td")[1];
+	td3 = tr[i].getElementsByTagName("td")[2];
+    if (td || td2 || td3) {
+      txtValue = td.textContent || td.innerText;
+      txtValue2 = td2.textContent || td2.innerText;
+      txtValue3 = td3.textContent || td3.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } 
+       else if (txtValue2.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } 
+       else if (txtValue3.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } 
+      else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+
 <script type="text/javascript">
 $(document).ready(function() {
     setTimeout(function() {
@@ -34,8 +69,7 @@ $(document).ready(function() {
         <li class="nav-item active"> <a class="nav-link" href="index.php">INICIO<span class="sr-only">(current)</span></a> </li>
       </ul>
       <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Busqueda</button>
+        <input class="form-control mr-sm-2" type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar Contacto">
       </form>
     </div>
   </nav>
@@ -249,13 +283,14 @@ $obj = $stmt->fetchObject();
 <div style="float:right; margin-bottom:5px;">
 
 <form action="" method="post"><button class="btn btn-primary" name="formInsertar">Nuevo Contacto</button>  <a href="index.php"><button type="button" class="btn btn-primary">Cancelar</button></a></form></div>
+
 <div class="table-responsive">
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" id="myTable">
 <thead class="thead-dark">
     <th width="18%">Nombre</th>
     <th width="15%">Telefono</th>
-    <th width="15%">Direccion</th>
     <th width="14%">Correo</th>
+    <th width="15%">Direccion</th>
     <th width="13%">Fecha Nacimiento</th>
     <th width="13%">Edad</th>
     <th width="13%" colspan="2"></th>
@@ -278,8 +313,8 @@ $edad_diff = date_diff(date_create($fecha_nacimiento), date_create($dia_actual))
 echo "<tr>
 <td>".$result -> nombres."</td>
 <td>".$result -> apellidos."</td>
-<td>".$result -> profesion."</td>
 <td>".$result -> estado."</td>
+<td>".$result -> profesion."</td>
 <td>".$result -> fregis."</td>
 <td>".$edad_diff->y."</td>
 <td>
